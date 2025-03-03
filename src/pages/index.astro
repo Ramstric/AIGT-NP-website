@@ -1,0 +1,136 @@
+---
+import "../styles/global.css";
+
+import Button from "../components/Button.astro";
+import Layout from "../layouts/Layout.astro";
+---
+
+<script src="../scripts/index.js"></script>
+
+<Layout>
+  <div class="hero">
+    <div class="title">
+      <h1>AI-Generated text detector</h1>
+    </div>
+    <div class="description">
+      <h2>GitHub repo:</h2>
+      <a href="https://github.com/Ramstric/AI-generated-text-detection-using-NLP" target="_blank">github.com/Ramstric/AI-generated-text-detection-using-NLP</a>
+    </div>
+  </div>
+
+  <div class="detection">
+    <div class="text-box">
+      <textarea
+        id="text-box"
+        placeholder="Paste your text here, of at least 100 words."
+      ></textarea>
+    </div>
+    <div class="results">
+      <div class="percentage">
+        <h1>-%</h1>
+        <h2>of the text</h2>
+        <h2>is likely -.</h2>
+      </div>
+      <div class="plots">
+        <h2>placeholder</h2>
+      </div>
+      <div class="confidence">
+        <h2>with a confidence of</h2>
+        <h2>-%</h2>
+      </div>
+    </div>
+  </div>
+
+  <div class="buttons">
+    <Button
+      id="analyze-btn"
+      innerHtml="Analyze text"
+      type="invert"
+      labelcolor="var(--blue)"
+      bgcolor="var(--primary)"
+    />
+
+    <Button
+      id="clear-btn"
+      innerHtml="Clear text"
+      type="invert"
+      labelcolor="var(--red)"
+      bgcolor="var(--primary)"
+    />
+  </div>
+</Layout>
+
+<style>
+  /* #region Hero */
+  .hero {
+    height: fit-content;
+    gap: 10px;
+
+    color: var(--primary);
+  }
+
+  .hero .title {
+    width: fit-content;
+  }
+
+  .hero .description {
+    flex-direction: row;
+    gap: 10px;
+  }
+
+  .hero .description * {
+    width: fit-content;
+  }
+
+  .hero .description a {
+    font-size: var(--h2-desktop);
+    color: var(--blue);
+
+    transition: color 0.2s;
+  }
+
+  .hero .description a:hover {
+    color: var(--yellow);
+  }
+  /* #endregion */
+
+  /* #region Detection */
+  .detection {
+    flex-direction: row;
+    gap: 10px;
+  }
+
+  .detection .text-box textarea {
+    padding: 15px;
+    border-radius: 15px;
+    border: none;
+
+    color: var(--background);
+    background-color: var(--primary);
+
+    resize: none;
+    outline: none;
+  }
+
+  .detection .results {
+    /*display: none;*/
+    width: fit-content;
+    gap: 75px;
+    padding: 25px;
+
+    text-align: center;
+
+    border-radius: 15px;
+    background-color: var(--primary);
+  }
+  /* #endregion */
+
+  /* #region Buttons */
+  .buttons {
+    height: fit-content;
+    flex-direction: row;
+    gap: 50px;
+  }
+
+  /* #endregion */
+</style>
