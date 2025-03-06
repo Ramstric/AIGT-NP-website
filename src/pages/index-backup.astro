@@ -25,25 +25,18 @@ import Layout from "../layouts/Layout.astro";
         placeholder="Paste your text here, of at least 100 words."
       ></textarea>
     </div>
-    <div class="results" id="results">
-      <div>
-        <h2>Logistic Regression</h2>
-        <h2 id="lr">-</h2>
+    <div class="results">
+      <div class="percentage">
+        <h1>-%</h1>
+        <h2>of the text</h2>
+        <h2>is likely -.</h2>
       </div>
-      
-      <div>
-        <h2>Naive Bayes</h2>
-        <h2 id="nb">-</h2>
+      <div class="plots">
+        <h2>placeholder</h2>
       </div>
-
-      <div>
-        <h2>Random Forest</h2>
-        <h2 id="rf">-</h2>
-      </div>
-
-      <div>
-        <h2>Support Vector</h2>
-        <h2 id="svm">-</h2>
+      <div class="confidence">
+        <h2>with a confidence of</h2>
+        <h2>-%</h2>
       </div>
     </div>
   </div>
@@ -106,8 +99,6 @@ import Layout from "../layouts/Layout.astro";
   .detection {
     flex-direction: row;
     gap: 10px;
-    transition: all 0.25s ease;
-    
   }
 
   .detection .text-box textarea {
@@ -122,33 +113,16 @@ import Layout from "../layouts/Layout.astro";
     outline: none;
   }
 
-  .detection .text-box {
-  flex-grow: 1;
-  flex-shrink: 1;
-  }
-
   .detection .results {
-    
-    flex-grow: 1;
-    flex-shrink: 25;
-    opacity: 0;
-
-    overflow: hidden;
+    /*display: none;*/
     width: fit-content;
-
-    gap: 40px;
+    gap: 75px;
     padding: 25px;
 
     text-align: center;
 
     border-radius: 15px;
     background-color: var(--primary);
-  
-    transition: all 0.25s ease;
-  }
-
-  .detection .results div {
-    white-space: nowrap;
   }
   /* #endregion */
 
