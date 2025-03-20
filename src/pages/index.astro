@@ -27,23 +27,57 @@ import Layout from "../layouts/Layout.astro";
     </div>
     <div class="results" id="results">
       <div>
-        <h2>Logistic Regression</h2>
-        <h2 id="lr">-</h2>
+        <h2>Models details</h2>
       </div>
       
+       <!--This is a comment. Comments are not displayed in the browser
       <div>
-        <h2>Naive Bayes</h2>
-        <h2 id="nb">-</h2>
+        <h3>Logistic Regression</h3>
+        <div id="lr">
+          <p></p>
+          <p></p>
+        </div>
+      </div>
+      -->
+      <div>
+        <h3>Logistic Regression</h3>
+        <table id="lr">
+          <tr>
+            <td>Human</td>
+            <td>-</td>
+          </tr>
+          <tr>
+            <td>AI</td>
+            <td>-</td>
+          </tr>
+        </table>
+      </div>
+
+
+      <div>
+        <h3>Random Forest</h3>
+        <table id="rf">
+          <tr>
+            <td>Human</td>
+            <td>-</td>
+          </tr>
+          <tr>
+            <td>AI</td>
+            <td>-</td>
+          </tr>
+        </table>
       </div>
 
       <div>
-        <h2>Random Forest</h2>
-        <h2 id="rf">-</h2>
-      </div>
-
-      <div>
-        <h2>Support Vector</h2>
-        <h2 id="svm">-</h2>
+        <h3>Support Vector</h3>
+        <table id="svm">
+          <tr>
+            <td>Human</td>
+          </tr>
+          <tr>
+            <td style="color: gray;">No probabilities available</td>
+          </tr>
+        </table>
       </div>
     </div>
   </div>
@@ -128,7 +162,7 @@ import Layout from "../layouts/Layout.astro";
   }
 
   .detection .results {
-    
+    justify-content: flex-start;
     flex-grow: 1;
     flex-shrink: 25;
     opacity: 0;
@@ -136,10 +170,8 @@ import Layout from "../layouts/Layout.astro";
     overflow: hidden;
     width: fit-content;
 
-    gap: 40px;
+    gap: 20px;
     padding: 25px;
-
-    text-align: center;
 
     border-radius: 15px;
     background-color: var(--primary);
@@ -150,6 +182,24 @@ import Layout from "../layouts/Layout.astro";
   .detection .results div {
     white-space: nowrap;
   }
+
+  .detection .results * {
+    height: fit-content;
+  }
+
+  .detection .results table {
+    align-self: flex-end;
+
+  }
+
+  .detection .results tr:first-child {
+    color: var(--blue);
+  }
+
+  .detection .results tr:last-child {
+    color: var(--red);
+  }
+
   /* #endregion */
 
   /* #region Buttons */
