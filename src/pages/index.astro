@@ -30,16 +30,6 @@ import Layout from "../layouts/Layout.astro";
       <div>
         <h2>Models details</h2>
       </div>
-
-      <!--This is a comment. Comments are not displayed in the browser
-      <div>
-        <h3>Logistic Regression</h3>
-        <div id="lr">
-          <p></p>
-          <p></p>
-        </div>
-      </div>
-      -->
       <div>
         <h3>Logistic Regression</h3>
         <table id="lr">
@@ -230,15 +220,6 @@ import Layout from "../layouts/Layout.astro";
       response.json().then((data) => {
         console.log(data);
 
-        /*
-        rfModelResult.firstElementChild.innerText = data.LogisticRegression === 1 ? 'AI' : 'Human';
-
-        rfModelResult.firstElementChild.innerText = (data.RandomForest_proba[0]*100).toFixed(2) + '% Human'
-        rfModelResult.lastElementChild.innerText = (data.RandomForest_proba[1]*100).toFixed(2) + '% AI'
-
-        svmModelResult.firstElementChild.innerText = data.SVC === 1 ? 'AI' : 'Human';
-        svmModelResult.firstElementChild.style.color = data.SVC === 1 ? 'var(--red)' : 'var(--blue)';
-            */
         lrModelResult.getElementsByTagName("tr")[0].getElementsByTagName("td")[1].innerText =(data.LogisticRegression_proba[0] * 100).toFixed(2) + "%";
         lrModelResult.getElementsByTagName("tr")[1].getElementsByTagName("td")[1].innerText =(data.LogisticRegression_proba[1] * 100).toFixed(2) + "%";
 
