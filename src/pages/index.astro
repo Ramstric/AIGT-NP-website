@@ -5,8 +5,6 @@ import Button from "../components/Button.astro";
 import Layout from "../layouts/Layout.astro";
 ---
 
-<script src="../scripts/index.js"></script>
-
 <Layout>
   <div class="hero">
     <div class="title">
@@ -14,7 +12,11 @@ import Layout from "../layouts/Layout.astro";
     </div>
     <div class="description">
       <h2>GitHub repo:</h2>
-      <a href="https://github.com/Ramstric/AI-generated-text-detection-using-NLP" target="_blank">github.com/Ramstric/AI-generated-text-detection-using-NLP</a>
+      <a
+        href="https://github.com/Ramstric/AI-generated-text-detection-using-NLP"
+        target="_blank"
+        >github.com/Ramstric/AI-generated-text-detection-using-NLP</a
+      >
     </div>
   </div>
 
@@ -22,15 +24,14 @@ import Layout from "../layouts/Layout.astro";
     <div class="text-box">
       <textarea
         id="text-box"
-        placeholder="Paste your text here, of at least 100 words."
-      ></textarea>
+        placeholder="Paste your text here, of at least 100 words."></textarea>
     </div>
     <div class="results" id="results">
       <div>
         <h2>Models details</h2>
       </div>
-      
-       <!--This is a comment. Comments are not displayed in the browser
+
+      <!--This is a comment. Comments are not displayed in the browser
       <div>
         <h3>Logistic Regression</h3>
         <div id="lr">
@@ -52,7 +53,6 @@ import Layout from "../layouts/Layout.astro";
           </tr>
         </table>
       </div>
-
 
       <div>
         <h3>Random Forest</h3>
@@ -141,7 +141,6 @@ import Layout from "../layouts/Layout.astro";
     flex-direction: row;
     gap: 10px;
     transition: all 0.25s ease;
-    
   }
 
   .detection .text-box textarea {
@@ -157,8 +156,8 @@ import Layout from "../layouts/Layout.astro";
   }
 
   .detection .text-box {
-  flex-grow: 1;
-  flex-shrink: 1;
+    flex-grow: 1;
+    flex-shrink: 1;
   }
 
   .detection .results {
@@ -175,7 +174,7 @@ import Layout from "../layouts/Layout.astro";
 
     border-radius: 15px;
     background-color: var(--primary);
-  
+
     transition: all 0.25s ease;
   }
 
@@ -189,7 +188,6 @@ import Layout from "../layouts/Layout.astro";
 
   .detection .results table {
     align-self: flex-end;
-
   }
 
   .detection .results tr:first-child {
@@ -213,3 +211,67 @@ import Layout from "../layouts/Layout.astro";
 
   /* #endregion */
 </style>
+
+<script>
+  const backendURL = "";
+
+  const analyzeButton = document.getElementById("analyze-btn") as HTMLButtonElement;
+  const clearButton = document.getElementById("clear-btn") as HTMLButtonElement;
+  const textInput = document.getElementById("text-box") as HTMLTextAreaElement;
+  const resultsArea = document.getElementById("results") as HTMLDivElement;
+
+  const lrModelResult = document.getElementById("lr") as HTMLTableElement;
+  const rfModelResult = document.getElementById("rf") as HTMLTableElement;
+  const svmModelResult = document.getElementById("svm") as HTMLTableElement;
+
+  async function predictModel(text: string) {
+    fetch(backendURL + "/api/predict", {method: "POST",body: JSON.stringify({ text: text }),
+    }).then((response) => {
+      response.json().then((data) => {
+        console.log(data);
+
+        /*
+        rfModelResult.firstElementChild.innerText = data.LogisticRegression === 1 ? 'AI' : 'Human';
+
+        rfModelResult.firstElementChild.innerText = (data.RandomForest_proba[0]*100).toFixed(2) + '% Human'
+        rfModelResult.lastElementChild.innerText = (data.RandomForest_proba[1]*100).toFixed(2) + '% AI'
+
+        svmModelResult.firstElementChild.innerText = data.SVC === 1 ? 'AI' : 'Human';
+        svmModelResult.firstElementChild.style.color = data.SVC === 1 ? 'var(--red)' : 'var(--blue)';
+            */
+        lrModelResult.getElementsByTagName("tr")[0].getElementsByTagName("td")[1].innerText =(data.LogisticRegression_proba[0] * 100).toFixed(2) + "%";
+        lrModelResult.getElementsByTagName("tr")[1].getElementsByTagName("td")[1].innerText =(data.LogisticRegression_proba[1] * 100).toFixed(2) + "%";
+
+        rfModelResult.getElementsByTagName("tr")[0].getElementsByTagName("td")[1].innerText =(data.LogisticRegression_proba[0] * 100).toFixed(2) + "%";
+        rfModelResult.getElementsByTagName("tr")[1].getElementsByTagName("td")[1].innerText =(data.LogisticRegression_proba[1] * 100).toFixed(2) + "%";
+
+        svmModelResult.getElementsByTagName("tr")[0].getElementsByTagName("td")[0].innerText =data.SVC === 1 ? "AI" : "Human";
+        svmModelResult.getElementsByTagName("tr")[0].getElementsByTagName("td")[0].style.color =data.SVC === 1 ? "var(--red)" : "var(--blue)";
+      });
+    }).catch((error) => {return error;});
+  }
+
+  
+  analyzeButton.addEventListener("click", async () => {
+    if (textInput.value === "") {} 
+    else {
+      clearButton.hidden = false;
+      clearButton.style.display = "block";
+      resultsArea.style.flexShrink = "0";
+      resultsArea.style.opacity = "1";
+      try {
+        await predictModel(textInput.value);
+      } catch (error) {
+        console.error("Error:", error);
+      }
+    }
+  });
+
+  clearButton.addEventListener("click", () => {
+    textInput.value = "";
+    clearButton.hidden = true;
+
+    resultsArea.style.flexShrink = "25";
+    resultsArea.style.opacity = "0";
+  });
+</script>
